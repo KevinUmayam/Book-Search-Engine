@@ -17,5 +17,8 @@
     "apollo-server-express": "^2.19.1",
     "concurrently": "^5.1.0",
     "graphql": "^15.4.0"
+  },
+  "engines": {
+    "node": "v16.16.0"
   }
 }
