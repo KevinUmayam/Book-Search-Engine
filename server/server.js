@@ -38,7 +38,7 @@ const server = new ApolloServer({
   context: authMiddleware,
 });
 
-server.applyMiddleware({ app });
+// server.applyMiddleware({ app });
 
 // Call the async function to start the server
 // startApolloServer(typeDefs, resolvers);
