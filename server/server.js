@@ -40,6 +40,8 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app });
 
+// Call the async function to start the server
+startApolloServer(typeDefs, resolvers);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -51,12 +53,20 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
-db.once("open", () => {
-  app.listen(PORT, () => {
-    console.log(`API server running on port ${PORT}!`);
-    console.log(`GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+const startApolloServer = async (typeDefs, resolvers) => {
+  await server.start();
+  server.applyMiddleware({ app });
+
+  db.once("open", () => {
+    app.listen(PORT, () => {
+      console.log(`API server running on port ${PORT}!`);
+      console.log(
+        `Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`
+      );
+    });
   });
-});
+};
 db.on("error", (err) => {
   console.error("MongoDB connection error: ", err);
 });
+startApolloServer(typeDefs, resolvers);
