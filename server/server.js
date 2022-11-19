@@ -41,7 +41,7 @@ const server = new ApolloServer({
 server.applyMiddleware({ app });
 
 // Call the async function to start the server
-startApolloServer(typeDefs, resolvers);
+// startApolloServer(typeDefs, resolvers);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
