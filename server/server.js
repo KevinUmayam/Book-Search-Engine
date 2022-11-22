@@ -32,12 +32,6 @@ const PORT = process.env.PORT || 3001;
 
 const { typeDefs, resolvers } = require("./schemas");
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: authMiddleware,
-});
-
 // server.applyMiddleware({ app });
 
 // Call the async function to start the server
@@ -54,6 +48,12 @@ app.get("*", (req, res) => {
 });
 
 const startApolloServer = async (typeDefs, resolvers) => {
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: authMiddleware,
+  });
+
   await server.start();
   server.applyMiddleware({ app });
 
